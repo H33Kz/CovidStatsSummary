@@ -15,5 +15,5 @@ public class AllStats {
   private Meta cache;
   private DataSource dataSource;
   private String apiSourceCode;
-  private ArrayList<RawData> rawDataList;
+  private ArrayList<RawData> rawData;
 }

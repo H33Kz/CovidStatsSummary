@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +36,9 @@ class StatsController {
   public Meta getMetaData() throws Exception{
     return statsService.getMetaData();
   }
-  
+
+  @GetMapping("/getCountry/{name}")
+  public ArrayList<RawData> getCountry(@PathVariable String name) throws Exception{
+    return statsService.getCountry(name);
+  }
 }
