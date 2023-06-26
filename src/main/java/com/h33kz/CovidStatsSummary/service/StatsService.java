@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.h33kz.CovidStatsSummary.models.AllStats;
 import com.h33kz.CovidStatsSummary.models.Meta;
 import com.h33kz.CovidStatsSummary.models.RawData;
+import com.h33kz.CovidStatsSummary.models.SummaryStats;
 
 @Service
 public class StatsService {
@@ -22,11 +23,15 @@ public class StatsService {
     ArrayList<RawData> allData = callGetMethod().getRawData();
     ArrayList<RawData> resultList = new ArrayList<RawData>();
     for (RawData iterator : allData) {
-      if (iterator.getCountry_Region() == name) {
+      if(iterator.getCountry_Region().equals(name)){
         resultList.add(iterator);
       }
     }
     return resultList;
+  }
+
+  public SummaryStats getSummary() throws Exception{
+    return callGetMethod().getSummaryStats();
   }
 
   public ArrayList<RawData> getCountries() throws Exception{
