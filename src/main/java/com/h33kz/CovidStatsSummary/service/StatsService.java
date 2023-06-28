@@ -22,7 +22,7 @@ public class StatsService {
     ArrayList<RawData> allData = callGetMethod().getRawData();
     ArrayList<RawData> resultList = new ArrayList<RawData>();
     for (RawData iterator : allData) {
-      if (iterator.getCountry_Region() == name) {
+      if (iterator.getCountry_Region().equals(name)) {
         resultList.add(iterator);
       }
     }
