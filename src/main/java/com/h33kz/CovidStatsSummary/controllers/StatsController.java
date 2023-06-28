@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.h33kz.CovidStatsSummary.models.RawData;
-import com.h33kz.CovidStatsSummary.models.SummaryStats;
 import com.h33kz.CovidStatsSummary.models.AllStats;
 import com.h33kz.CovidStatsSummary.models.Meta;
 import com.h33kz.CovidStatsSummary.service.StatsService;
@@ -41,10 +40,5 @@ class StatsController {
   @GetMapping("/getCountry/{name}")
   public ArrayList<RawData> getCountry(@PathVariable String name) throws Exception{
     return statsService.getCountry(name);
-  }
-
-  @GetMapping("/getSummary")
-  public SummaryStats getSummary() throws Exception{
-    return statsService.getSummary();
   }
 }
