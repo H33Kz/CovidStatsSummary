@@ -1,16 +1,18 @@
 package com.h33kz.CovidStatsSummary.models;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RawData {
   private String FIPS;
   private String Admin2;
-  private String Provinence_State;
+  private String Province_State;
   private String Country_Region;
   private String Last_Update;
   private String Lat;

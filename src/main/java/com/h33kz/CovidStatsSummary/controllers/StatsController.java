@@ -23,22 +23,29 @@ class StatsController {
   private StatsService statsService;
 
   @GetMapping("/getAll")
-  public AllStats getAll() throws Exception{
+  public AllStats getAll() throws Exception {
     return statsService.getAll();
   }
 
   @GetMapping("/getCountries")
-  public ArrayList<RawData> getCountries() throws Exception{
+  public ArrayList<RawData> getCountries() throws Exception {
     return statsService.getCountries();
   }
 
   @GetMapping("/getMetaData")
-  public Meta getMetaData() throws Exception{
+  public Meta getMetaData() throws Exception {
     return statsService.getMetaData();
   }
 
   @GetMapping("/getCountry/{name}")
-  public ArrayList<RawData> getCountry(@PathVariable String name) throws Exception{
+  public ArrayList<RawData> getCountry(@PathVariable String name) throws Exception {
     return statsService.getCountry(name);
+  }
+
+  @GetMapping("/update")
+  public void updateDB() throws Exception {
+    statsService.deleteDBContents();
+    statsService.updateDB();
+    return;
   }
 }
