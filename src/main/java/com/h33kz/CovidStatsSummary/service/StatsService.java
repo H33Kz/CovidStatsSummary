@@ -67,6 +67,7 @@ public class StatsService {
       entry.setName(iterator.getCountry_Region());
       entry.setCase_fatality_ratio(iterator.getCase_Fatality_Ratio());
       entry.setProvince(iterator.getProvince_State());
+      entry.setCombined_key(iterator.getCombined_Key());
       dataRepository.save(entry);
     }
 

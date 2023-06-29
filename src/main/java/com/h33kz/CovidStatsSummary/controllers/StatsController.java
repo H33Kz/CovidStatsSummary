@@ -15,7 +15,7 @@ import com.h33kz.CovidStatsSummary.models.Meta;
 import com.h33kz.CovidStatsSummary.service.StatsService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/direct")
 @CrossOrigin
 class StatsController {
 

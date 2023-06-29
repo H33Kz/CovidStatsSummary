@@ -23,4 +23,5 @@ public class Simpledata {
   private String deaths;
   private String case_fatality_ratio;
   private String province;
+  private String combined_key;
 }
