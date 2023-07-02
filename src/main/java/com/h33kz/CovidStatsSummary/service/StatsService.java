@@ -62,10 +62,10 @@ public class StatsService {
     ArrayList<RawData> data = callGetMethod().getRawData();
     for (RawData iterator : data) {
       Simpledata entry = new Simpledata();
-      entry.setDeaths(Integer.parseInt(iterator.getDeaths()));
-      entry.setConfirmed(Integer.parseInt(iterator.getConfirmed()));
+      entry.setDeaths(iterator.getDeaths());
+      entry.setConfirmed(iterator.getConfirmed());
       entry.setName(iterator.getCountry_Region());
-      entry.setCase_fatality_ratio(Double.parseDouble(iterator.getCase_Fatality_Ratio()));
+      entry.setCase_fatality_ratio(iterator.getCase_Fatality_Ratio());
       entry.setProvince(iterator.getProvince_State());
       entry.setCombined_key(iterator.getCombined_Key());
       dataRepository.save(entry);
