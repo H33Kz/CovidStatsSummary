@@ -5,17 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.h33kz.CovidStatsSummary.repository.SimpleDataRepository;
+import com.h33kz.CovidStatsSummary.service.DBStatsService;
 
 @Controller
 public class GUIController {
   @Autowired
-  private SimpleDataRepository repo;
+  private DBStatsService service;
 
   @GetMapping("/")
   public ModelAndView getHome(){
     ModelAndView mav = new ModelAndView("index");
-    mav.addObject("countries", repo.findAll());
+    mav.addObject("countries", service.getAll());
     return mav;
   }
 }
