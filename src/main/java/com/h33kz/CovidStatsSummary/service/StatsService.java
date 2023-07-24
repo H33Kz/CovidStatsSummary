@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import com.h33kz.CovidStatsSummary.models.Simpledata;
 import com.h33kz.CovidStatsSummary.models.Simplesummary;
 import com.h33kz.CovidStatsSummary.repository.SimpleDataRepository;
 import com.h33kz.CovidStatsSummary.repository.SummaryRepository;
+
 
 @Service
 public class StatsService {
@@ -71,16 +73,36 @@ public class StatsService {
   public void updateDB() throws Exception {
     AllStats aStats = callGetMethod();
     ArrayList<RawData> data = aStats.getRawData();
-    for (RawData iterator : data) {
+    ArrayList<Simpledata> newData = new ArrayList<>();
+    
+    for(RawData iterator : data){
       Simpledata entry = new Simpledata();
-      entry.setDeaths(iterator.getDeaths());
-      entry.setConfirmed(iterator.getConfirmed());
+      entry.setConfirmed(Long.parseLong(iterator.getConfirmed()));
+      entry.setDeaths(Long.parseLong(iterator.getDeaths()));
       entry.setName(iterator.getCountry_Region());
-      entry.setCase_fatality_ratio(iterator.getCase_Fatality_Ratio());
-      entry.setProvince(iterator.getProvince_State());
-      entry.setCombined_key(iterator.getCombined_Key());
-      dataRepository.save(entry);
+      newData.add(entry);
     }
+
+
+    HashMap<String,Simpledata> map = new HashMap<>();
+
+    for(Simpledata iterator : newData){
+      String name = iterator.getName();
+      if(map.containsKey(name)){
+        Simpledata other = map.get(name);
+        other.setDeaths(other.getDeaths() + iterator.getDeaths());
+        other.setConfirmed(other.getConfirmed() + iterator.getConfirmed());
+      }else{
+        map.put(name, iterator);
+      }
+    }
+    newData = new ArrayList<>(map.values());
+
+    for (Simpledata iterator : newData){
+      dataRepository.save(iterator);
+    }
+
+ 
     Simplesummary summary = new Simplesummary();
     summary.setConfirmed(aStats.getSummaryStats().getGlobal().getConfirmed());
     summary.setDeaths(aStats.getSummaryStats().getGlobal().getDeaths());

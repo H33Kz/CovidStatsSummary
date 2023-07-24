@@ -28,7 +28,6 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#summarySection">Summary</a></li>
-            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#graphsSection">Graphs</a></li>
             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#listSection">List</a></li>
             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#sourceSection">Source</a></li>
           </ul>
@@ -68,7 +67,7 @@
 
     <!--General stats list section-->
     <section class="page-section bg-white" id="listSection">
-      <h1 class="page-section-heading text-center text-uppercase">General Stats listed by state (Or other administrative criteria)</h1>
+      <h1 class="page-section-heading text-center text-uppercase">General Stats listed by country</h1>
       <div class="text-center">
         <button type="button" class="btn btn-secondary" onclick="toggleList()">Show/Hide list</button>
       </div>
@@ -77,23 +76,29 @@
         <thead>
           <tr>
             <th>Country</th>
-            <th>State/County</th>
             <th>Confirmed cases</th>
             <th>Deaths</th>
-            <th>Fatality ratio</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="country: ${countries}">
             <td th:text="${country.name}"></td>
-            <td th:text="${country.combined_key}"></td>
             <td th:text="${country.confirmed}"></td>
             <td th:text="${country.deaths}"></td>
-            <td th:text="${country.case_fatality_ratio}"></td>
           </tr>
         </tbody>
       </table>
     </div>
+    </section>
+
+    <section class="page-section text-white" id="sourceSection">
+      <div class="container">
+        <h1 class="page-section-heading text-center text-uppercase">Source</h1>
+        <div class="text-center mt-4">
+          All data used here was acquired trough public API published by John Hopkins University Center for Systems Science and Engineering, which ceased collecting COVID-19 pandemic data on march 10, 2023.
+          Reference: <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">here</a>
+        </div>
+      </div>
     </section>
 
 

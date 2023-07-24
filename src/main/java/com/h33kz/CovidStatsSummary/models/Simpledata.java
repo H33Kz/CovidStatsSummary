@@ -19,9 +19,6 @@ public class Simpledata {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String name;
-  private String confirmed;
-  private String deaths;
-  private String case_fatality_ratio;
-  private String province;
-  private String combined_key;
+  private long confirmed;
+  private long deaths;
 }
