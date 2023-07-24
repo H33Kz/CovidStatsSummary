@@ -12,16 +12,22 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.h33kz.CovidStatsSummary.models.AllStats;
+import com.h33kz.CovidStatsSummary.models.Cases;
 import com.h33kz.CovidStatsSummary.models.Meta;
 import com.h33kz.CovidStatsSummary.models.RawData;
 import com.h33kz.CovidStatsSummary.models.Simpledata;
+import com.h33kz.CovidStatsSummary.models.Simplesummary;
 import com.h33kz.CovidStatsSummary.repository.SimpleDataRepository;
+import com.h33kz.CovidStatsSummary.repository.SummaryRepository;
 
 @Service
 public class StatsService {
 
   @Autowired
   private SimpleDataRepository dataRepository;
+
+  @Autowired
+  private SummaryRepository summaryRepository;
 
   private static final String API_URL = "https://coronavirus.m.pipedream.net/";
 
@@ -44,6 +50,10 @@ public class StatsService {
     return callGetMethod().getCache();
   }
 
+  public Cases getGlobalSummary() throws Exception{
+    return callGetMethod().getSummaryStats().getGlobal();
+  }
+
   public AllStats getAll() throws Exception {
     return callGetMethod();
   }
@@ -59,7 +69,8 @@ public class StatsService {
   }
 
   public void updateDB() throws Exception {
-    ArrayList<RawData> data = callGetMethod().getRawData();
+    AllStats aStats = callGetMethod();
+    ArrayList<RawData> data = aStats.getRawData();
     for (RawData iterator : data) {
       Simpledata entry = new Simpledata();
       entry.setDeaths(iterator.getDeaths());
@@ -70,11 +81,15 @@ public class StatsService {
       entry.setCombined_key(iterator.getCombined_Key());
       dataRepository.save(entry);
     }
-
+    Simplesummary summary = new Simplesummary();
+    summary.setConfirmed(aStats.getSummaryStats().getGlobal().getConfirmed());
+    summary.setDeaths(aStats.getSummaryStats().getGlobal().getDeaths());
+    summaryRepository.save(summary);
   }
 
   public void deleteDBContents() {
     dataRepository.deleteBeforeUpdate();
+    summaryRepository.deleteBeforeUpdate();
   }
 
 }

@@ -6,16 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.h33kz.CovidStatsSummary.service.DBStatsService;
+import com.h33kz.CovidStatsSummary.service.StatsService;
 
 @Controller
 public class GUIController {
   @Autowired
-  private DBStatsService service;
+  private DBStatsService dbStatsService;
+  @Autowired
+  private StatsService apiStatsService; 
 
   @GetMapping("/")
-  public ModelAndView getHome(){
+  public ModelAndView getHome() throws Exception{
     ModelAndView mav = new ModelAndView("index");
-    mav.addObject("countries", service.getAll());
+    mav.addObject("countries", dbStatsService.getAll());
+    mav.addObject("global", dbStatsService.getSummary());
     return mav;
   }
 }
