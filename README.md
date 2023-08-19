@@ -54,12 +54,12 @@ Application consists of three controllers:
 * [John Hopkins University Covid-19 API](https://github.com/CSSEGISandData/COVID-19) REST controller - for accesing this API and getting specified data and updating local database with most recent data
   
 List of requests you can send to application APIs:
-1. Main controller
+1. Main controller - 
    As of now, main controller can only deliver one site which contains all data. You can acces it trough:
    ```sh
     http://localhost:8081
     ```
-2. Database REST controller
+2. Database REST controller - 
    It is accesed by adding `/db` to main URL
    * Getting all data from database (Number of cases and deaths for each country)
      ```sh
@@ -69,7 +69,7 @@ List of requests you can send to application APIs:
      ```sh
      http://localhost:8081/db/{Country}
      ```
-3. Direct acces controller
+3. Direct acces controller - 
    It is reached by adding `/direct` to main URL
    * Getting all data from John Hopkins API
      ```sh
